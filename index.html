@@ -1,37 +1,184 @@
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Amazon Homepage — Week Project</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazon Homepage — Week Project</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@500">
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
+
 <body>
 
-  <header>
-    <!-- Logo, barra di ricerca, link Account / Ordini / Carrello -->
-  </header>
+    <header class="site-header"> <!-- Logo, barra di ricerca, link Account / Ordini / Carrello -->
+        <div class="header-content">
+            <a class="brand" href="#">
+                <img src="https://cdn.brandfetch.io/idawOgYOsG/theme/light/logo.svg?c=1dxbfHSJFAPEGdCLU4o5B"
+                    alt="Amazon">
+            </a>
+            <form id="form-ricerca" class="search-bar">
+                <input id="ricerca" type="search" placeholder="Cerca prodotti, categorie, brand...">
+                <button type="submit" title="Cerca">
+                    <span class="material-symbols-outlined search-icon">search</span>
+                </button>
+            </form>
+            <div class="header-links">
+                <a href="#footer">Account</a>
+                <a href="#prodotti-section">Ordini</a>
+                <button id="apri-carrello" class="cart-toggle" type="button">
+                    <span class="cart-label">Carrello</span> (<span id="contatore-carrello">0</span>)
+                </button>
+            </div>
+        </div>
+    </header>
 
-  <main>
+    <main id="inizio">
 
-    <section class="hero">
-      <!-- Titolo grande, sottotitolo -->
-    </section>
+        <section class="hero"> <!-- Titolo grande, sottotitolo -->
+            <h1 id="titolo-hero">Le offerte di oggi</h1>
+            <p>Sconti fino al 70% su elettronica, libri, casa e molto altro</p>
+        </section>
 
-    <section class="categorie">
-      <!-- 4 card categoria -->
-    </section>
+        <div class="page-content">
 
-    <section class="prodotti">
-      <!-- Griglia prodotti (Versione Base: HTML statico; Intermedia/Avanzata: generata da JS) -->
-    </section>
+            <section class="categorie"> <!-- 4 card categoria -->
 
-  </main>
+                <div class="section-heading">
+                    <h2 id="titolo-categorie">Categorie</h2>
+                    <button id="azzera-filtri" class="text-action" type="button">
+                        Mostra tutte
+                    </button>
+                </div>
 
-  <footer>
-    <!-- 3 colonne di link -->
-  </footer>
+                <div class="categorie-grid">
 
-  <script src="script.js"></script>
+                    <article class="category-card">
+                        <button type="button" class="category-button" id="categoria-elettronica">
+                            <div class="category-visual elettronica">Elettronica</div>
+                            <div class="category-info">
+                                <strong>Elettronica</strong>
+                                <span>Scopri di più →</span>
+                            </div>
+                        </button>
+                    </article>
+
+                    <article class="category-card">
+                        <button type="button" class="category-button" id="categoria-libri">
+                            <div class="category-visual libri">Libri</div>
+                            <div class="category-info">
+                                <strong>Libri</strong>
+                                <span>Scopri di più →</span>
+                            </div>
+                        </button>
+                    </article>
+
+                    <article class="category-card">
+                        <button type="button" class="category-button" id="categoria-abbigliamento">
+                            <div class="category-visual abbigliamento">Abbigliamento</div>
+                            <div class="category-info">
+                                <strong>Abbigliamento</strong>
+                                <span>Scopri di più →</span>
+                            </div>
+                        </button>
+                    </article>
+
+                    <article class="category-card">
+                        <button type="button" class="category-button" id="categoria-casa">
+                            <div class="category-visual casa">Casa</div>
+                            <div class="category-info">
+                                <strong>Casa</strong>
+                                <span>Scopri di più →</span>
+                            </div>
+                        </button>
+                    </article>
+                </div>
+            </section>
+
+            <section class="prodotti" id="prodotti-section">
+                <!-- Griglia prodotti (Versione Base: HTML statico; Intermedia/Avanzata: generata da JS) -->
+
+                <div class="section-heading">
+                    <div>
+                        <h2 id="titolo-prodotti">I più venduti</h2>
+                        <p id="conteggio-risultati" class="results-count"></p>
+                    </div>
+
+                    <div class="filters">
+                        <label for="ordinamento">Ordina per</label>
+                        <select id="ordinamento">
+                            <option value="predefinito">Più venduti</option>
+                            <option value="prezzo-crescente">Prezzo crescente</option>
+                            <option value="prezzo-decrescente">Prezzo decrescente</option>
+                            <option value="rating">Rating migliore</option>
+                        </select>
+
+                        <label class="available-check">
+                            <input type="checkbox" id="solo-disponibili">
+                            Solo disponibili (rating ≥ 3)
+                        </label>
+                    </div>
+                </div>
+
+                <div id="prodotti" class="prodotti-grid"></div>
+
+                <p id="nessun-risultato" class="empty-state" hidden>
+                    Nessun prodotto trovato. Prova a modificare la ricerca o i filtri.
+                </p>
+
+            </section>
+
+            <section class="carrello-panel" id="riepilogo-carrello" hidden>
+
+                <div class="section-heading">
+                    <h2 id="titolo-carrello">Il tuo carrello</h2>
+                    <button id="chiudi-carrello" type="button" class="text-action">Chiudi ✕</button>
+                </div>
+
+                <div id="lista-carrello"></div>
+
+                <div class="cart-footer">
+                    <strong>Totale: <span id="totale-carrello">€ 0,00</span></strong>
+                    <button id="svuota-carrello" type="button">Svuota carrello</button>
+                </div>
+
+            </section>
+
+        </div>
+    </main>
+
+    <footer id="footer">
+        <div class="footer-grid">
+
+            <div>
+                <h3>Chi siamo</h3>
+                <a href="#">Lavora con noi</a>
+                <a href="#">Investitori</a>
+                <a href="#">Sostenibilità</a>
+            </div>
+
+            <div>
+                <h3>Aiuto</h3>
+                <a href="#">Centro assistenza</a>
+                <a href="#">Spedizioni</a>
+                <a href="#">Resi e rimborsi</a>
+            </div>
+
+            <div>
+                <h3>Connettiti</h3>
+                <a href="#">Facebook</a>
+                <a href="#">Instagram</a>
+                <a href="#">YouTube</a>
+            </div>
+
+        </div>
+
+        <p class="project-note">
+            &copy; 2026 Emanuel Esposito - Progetto didattico EPICODE - sito dimostrativo, non affiliato ad Amazon.
+        </p>
+    </footer>
+
+    <script src="assets/js/script.js"></script>
 </body>
+
 </html>
